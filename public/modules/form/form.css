@@ -1,0 +1,7 @@
+.gen-input-group {
+  margin-bottom: 1em;
+}
+
+.gen-input-group:last-child {
+  margin-bottom: 0;
+}

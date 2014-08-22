@@ -1,0 +1,2094 @@
+--
+-- PostgreSQL database dump
+--
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+
+--
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+--
+
+CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
+
+
+--
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
+--
+
+COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
+
+
+SET search_path = public, pg_catalog;
+
+SET default_tablespace = '';
+
+SET default_with_oids = false;
+
+--
+-- Name: activity; Type: TABLE; Schema: public; Owner: genealogy; Tablespace: 
+--
+
+CREATE TABLE activity (
+    id integer NOT NULL,
+    researcher_id integer NOT NULL,
+    scheduled_date timestamp with time zone NOT NULL,
+    completed_date timestamp with time zone,
+    activity_type character varying(255) DEFAULT ''::character varying NOT NULL,
+    activity_id integer NOT NULL,
+    status character varying(255) DEFAULT 'not started'::character varying NOT NULL,
+    description text DEFAULT ''::text NOT NULL,
+    priority character varying(255) DEFAULT ''::character varying NOT NULL,
+    comments text DEFAULT ''::text NOT NULL,
+    created_at timestamp with time zone NOT NULL,
+    updated_at timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE public.activity OWNER TO genealogy;
+
+--
+-- Name: activity_id_seq; Type: SEQUENCE; Schema: public; Owner: genealogy
+--
+
+CREATE SEQUENCE activity_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.activity_id_seq OWNER TO genealogy;
+
+--
+-- Name: activity_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: genealogy
+--
+
+ALTER SEQUENCE activity_id_seq OWNED BY activity.id;
+
+
+--
+-- Name: administrative-task; Type: TABLE; Schema: public; Owner: genealogy; Tablespace: 
+--
+
+CREATE TABLE "administrative-task" (
+    activity_id integer NOT NULL,
+    created_at timestamp with time zone NOT NULL,
+    updated_at timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE public."administrative-task" OWNER TO genealogy;
+
+--
+-- Name: assertion; Type: TABLE; Schema: public; Owner: genealogy; Tablespace: 
+--
+
+CREATE TABLE assertion (
+    id integer NOT NULL,
+    surety_scheme_part_id integer NOT NULL,
+    researcher_id integer NOT NULL,
+    source_id integer NOT NULL,
+    subject_1_type character varying(255) DEFAULT ''::character varying NOT NULL,
+    subject_1_id integer NOT NULL,
+    subject_2_type character varying(255) DEFAULT ''::character varying NOT NULL,
+    subject_2_id integer NOT NULL,
+    value_id integer NOT NULL,
+    value_type character varying(255) DEFAULT ''::character varying NOT NULL,
+    rationale text DEFAULT ''::text NOT NULL,
+    disproved boolean DEFAULT false NOT NULL,
+    created_at timestamp with time zone NOT NULL,
+    updated_at timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE public.assertion OWNER TO genealogy;
+
+--
+-- Name: assertion_assertion; Type: TABLE; Schema: public; Owner: genealogy; Tablespace: 
+--
+
+CREATE TABLE assertion_assertion (
+    assertion_low_id integer NOT NULL,
+    assertion_high_id integer NOT NULL,
+    sequence_number integer NOT NULL,
+    created_at timestamp with time zone NOT NULL,
+    updated_at timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE public.assertion_assertion OWNER TO genealogy;
+
+--
+-- Name: assertion_id_seq; Type: SEQUENCE; Schema: public; Owner: genealogy
+--
+
+CREATE SEQUENCE assertion_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.assertion_id_seq OWNER TO genealogy;
+
+--
+-- Name: assertion_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: genealogy
+--
+
+ALTER SEQUENCE assertion_id_seq OWNED BY assertion.id;
+
+
+--
+-- Name: characteristic; Type: TABLE; Schema: public; Owner: genealogy; Tablespace: 
+--
+
+CREATE TABLE characteristic (
+    id integer NOT NULL,
+    place_id integer NOT NULL,
+    date daterange NOT NULL,
+    ascending_descending_none character varying(255) DEFAULT 'none'::character varying NOT NULL,
+    created_at timestamp with time zone NOT NULL,
+    updated_at timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE public.characteristic OWNER TO genealogy;
+
+--
+-- Name: characteristic-part; Type: TABLE; Schema: public; Owner: genealogy; Tablespace: 
+--
+
+CREATE TABLE "characteristic-part" (
+    id integer NOT NULL,
+    characteristic_id integer NOT NULL,
+    characteristic_part_type_id integer NOT NULL,
+    name character varying(255) DEFAULT ''::character varying NOT NULL,
+    sequence_number integer NOT NULL,
+    created_at timestamp with time zone NOT NULL,
+    updated_at timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE public."characteristic-part" OWNER TO genealogy;
+
+--
+-- Name: characteristic-part-type; Type: TABLE; Schema: public; Owner: genealogy; Tablespace: 
+--
+
+CREATE TABLE "characteristic-part-type" (
+    id integer NOT NULL,
+    name character varying(255) DEFAULT ''::character varying NOT NULL,
+    created_at timestamp with time zone NOT NULL,
+    updated_at timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE public."characteristic-part-type" OWNER TO genealogy;
+
+--
+-- Name: characteristic-part-type_id_seq; Type: SEQUENCE; Schema: public; Owner: genealogy
+--
+
+CREATE SEQUENCE "characteristic-part-type_id_seq"
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public."characteristic-part-type_id_seq" OWNER TO genealogy;
+
+--
+-- Name: characteristic-part-type_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: genealogy
+--
+
+ALTER SEQUENCE "characteristic-part-type_id_seq" OWNED BY "characteristic-part-type".id;
+
+
+--
+-- Name: characteristic-part_id_seq; Type: SEQUENCE; Schema: public; Owner: genealogy
+--
+
+CREATE SEQUENCE "characteristic-part_id_seq"
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public."characteristic-part_id_seq" OWNER TO genealogy;
+
+--
+-- Name: characteristic-part_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: genealogy
+--
+
+ALTER SEQUENCE "characteristic-part_id_seq" OWNED BY "characteristic-part".id;
+
+
+--
+-- Name: characteristic_id_seq; Type: SEQUENCE; Schema: public; Owner: genealogy
+--
+
+CREATE SEQUENCE characteristic_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.characteristic_id_seq OWNER TO genealogy;
+
+--
+-- Name: characteristic_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: genealogy
+--
+
+ALTER SEQUENCE characteristic_id_seq OWNED BY characteristic.id;
+
+
+--
+-- Name: citation-part; Type: TABLE; Schema: public; Owner: genealogy; Tablespace: 
+--
+
+CREATE TABLE "citation-part" (
+    source_id integer NOT NULL,
+    citation_part_type_id integer NOT NULL,
+    citation_part_value character varying(255) DEFAULT ''::character varying NOT NULL,
+    created_at timestamp with time zone NOT NULL,
+    updated_at timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE public."citation-part" OWNER TO genealogy;
+
+--
+-- Name: citation-part-type; Type: TABLE; Schema: public; Owner: genealogy; Tablespace: 
+--
+
+CREATE TABLE "citation-part-type" (
+    id integer NOT NULL,
+    name character varying(255) DEFAULT ''::character varying NOT NULL,
+    created_at timestamp with time zone NOT NULL,
+    updated_at timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE public."citation-part-type" OWNER TO genealogy;
+
+--
+-- Name: citation-part-type_id_seq; Type: SEQUENCE; Schema: public; Owner: genealogy
+--
+
+CREATE SEQUENCE "citation-part-type_id_seq"
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public."citation-part-type_id_seq" OWNER TO genealogy;
+
+--
+-- Name: citation-part-type_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: genealogy
+--
+
+ALTER SEQUENCE "citation-part-type_id_seq" OWNED BY "citation-part-type".id;
+
+
+--
+-- Name: event; Type: TABLE; Schema: public; Owner: genealogy; Tablespace: 
+--
+
+CREATE TABLE event (
+    id integer NOT NULL,
+    event_type_id integer NOT NULL,
+    place_id integer NOT NULL,
+    name character varying(255) DEFAULT ''::character varying NOT NULL,
+    date daterange NOT NULL,
+    created_at timestamp with time zone NOT NULL,
+    updated_at timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE public.event OWNER TO genealogy;
+
+--
+-- Name: event-type; Type: TABLE; Schema: public; Owner: genealogy; Tablespace: 
+--
+
+CREATE TABLE "event-type" (
+    id integer NOT NULL,
+    name character varying(255) DEFAULT ''::character varying NOT NULL,
+    created_at timestamp with time zone NOT NULL,
+    updated_at timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE public."event-type" OWNER TO genealogy;
+
+--
+-- Name: event-type-role; Type: TABLE; Schema: public; Owner: genealogy; Tablespace: 
+--
+
+CREATE TABLE "event-type-role" (
+    id integer NOT NULL,
+    event_type_id integer NOT NULL,
+    name character varying(255) DEFAULT ''::character varying NOT NULL,
+    created_at timestamp with time zone NOT NULL,
+    updated_at timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE public."event-type-role" OWNER TO genealogy;
+
+--
+-- Name: event-type-role_id_seq; Type: SEQUENCE; Schema: public; Owner: genealogy
+--
+
+CREATE SEQUENCE "event-type-role_id_seq"
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public."event-type-role_id_seq" OWNER TO genealogy;
+
+--
+-- Name: event-type-role_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: genealogy
+--
+
+ALTER SEQUENCE "event-type-role_id_seq" OWNED BY "event-type-role".id;
+
+
+--
+-- Name: event-type_id_seq; Type: SEQUENCE; Schema: public; Owner: genealogy
+--
+
+CREATE SEQUENCE "event-type_id_seq"
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public."event-type_id_seq" OWNER TO genealogy;
+
+--
+-- Name: event-type_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: genealogy
+--
+
+ALTER SEQUENCE "event-type_id_seq" OWNED BY "event-type".id;
+
+
+--
+-- Name: event_id_seq; Type: SEQUENCE; Schema: public; Owner: genealogy
+--
+
+CREATE SEQUENCE event_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.event_id_seq OWNER TO genealogy;
+
+--
+-- Name: event_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: genealogy
+--
+
+ALTER SEQUENCE event_id_seq OWNED BY event.id;
+
+
+--
+-- Name: group; Type: TABLE; Schema: public; Owner: genealogy; Tablespace: 
+--
+
+CREATE TABLE "group" (
+    id integer NOT NULL,
+    group_type_id integer NOT NULL,
+    place_id integer NOT NULL,
+    name character varying(255) DEFAULT 'none'::character varying NOT NULL,
+    date daterange NOT NULL,
+    criteria character varying(255) DEFAULT 'none'::character varying NOT NULL,
+    created_at timestamp with time zone NOT NULL,
+    updated_at timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE public."group" OWNER TO genealogy;
+
+--
+-- Name: group-type; Type: TABLE; Schema: public; Owner: genealogy; Tablespace: 
+--
+
+CREATE TABLE "group-type" (
+    id integer NOT NULL,
+    name character varying(255) DEFAULT ''::character varying NOT NULL,
+    ascending_descending_none character varying(255) DEFAULT 'none'::character varying NOT NULL,
+    created_at timestamp with time zone NOT NULL,
+    updated_at timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE public."group-type" OWNER TO genealogy;
+
+--
+-- Name: group-type-role; Type: TABLE; Schema: public; Owner: genealogy; Tablespace: 
+--
+
+CREATE TABLE "group-type-role" (
+    id integer NOT NULL,
+    group_type_id integer NOT NULL,
+    name character varying(255) DEFAULT ''::character varying NOT NULL,
+    sequence_number integer NOT NULL,
+    created_at timestamp with time zone NOT NULL,
+    updated_at timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE public."group-type-role" OWNER TO genealogy;
+
+--
+-- Name: group-type-role_id_seq; Type: SEQUENCE; Schema: public; Owner: genealogy
+--
+
+CREATE SEQUENCE "group-type-role_id_seq"
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public."group-type-role_id_seq" OWNER TO genealogy;
+
+--
+-- Name: group-type-role_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: genealogy
+--
+
+ALTER SEQUENCE "group-type-role_id_seq" OWNED BY "group-type-role".id;
+
+
+--
+-- Name: group-type_id_seq; Type: SEQUENCE; Schema: public; Owner: genealogy
+--
+
+CREATE SEQUENCE "group-type_id_seq"
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public."group-type_id_seq" OWNER TO genealogy;
+
+--
+-- Name: group-type_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: genealogy
+--
+
+ALTER SEQUENCE "group-type_id_seq" OWNED BY "group-type".id;
+
+
+--
+-- Name: group_id_seq; Type: SEQUENCE; Schema: public; Owner: genealogy
+--
+
+CREATE SEQUENCE group_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.group_id_seq OWNER TO genealogy;
+
+--
+-- Name: group_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: genealogy
+--
+
+ALTER SEQUENCE group_id_seq OWNED BY "group".id;
+
+
+--
+-- Name: persona; Type: TABLE; Schema: public; Owner: genealogy; Tablespace: 
+--
+
+CREATE TABLE persona (
+    id integer NOT NULL,
+    name character varying(255) DEFAULT ''::character varying NOT NULL,
+    comments text DEFAULT ''::text NOT NULL,
+    created_at timestamp with time zone NOT NULL,
+    updated_at timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE public.persona OWNER TO genealogy;
+
+--
+-- Name: persona_id_seq; Type: SEQUENCE; Schema: public; Owner: genealogy
+--
+
+CREATE SEQUENCE persona_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.persona_id_seq OWNER TO genealogy;
+
+--
+-- Name: persona_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: genealogy
+--
+
+ALTER SEQUENCE persona_id_seq OWNED BY persona.id;
+
+
+--
+-- Name: place; Type: TABLE; Schema: public; Owner: genealogy; Tablespace: 
+--
+
+CREATE TABLE place (
+    id integer NOT NULL,
+    existence_date daterange NOT NULL,
+    ascending_descending_none character varying(255) DEFAULT 'none'::character varying NOT NULL,
+    created_at timestamp with time zone NOT NULL,
+    updated_at timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE public.place OWNER TO genealogy;
+
+--
+-- Name: place-part; Type: TABLE; Schema: public; Owner: genealogy; Tablespace: 
+--
+
+CREATE TABLE "place-part" (
+    place_part_type_id integer NOT NULL,
+    place_id integer NOT NULL,
+    name character varying(255) DEFAULT ''::character varying NOT NULL,
+    sequence_number integer NOT NULL,
+    created_at timestamp with time zone NOT NULL,
+    updated_at timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE public."place-part" OWNER TO genealogy;
+
+--
+-- Name: place-part-type; Type: TABLE; Schema: public; Owner: genealogy; Tablespace: 
+--
+
+CREATE TABLE "place-part-type" (
+    id integer NOT NULL,
+    name character varying(255) DEFAULT ''::character varying NOT NULL,
+    created_at timestamp with time zone NOT NULL,
+    updated_at timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE public."place-part-type" OWNER TO genealogy;
+
+--
+-- Name: place-part-type_id_seq; Type: SEQUENCE; Schema: public; Owner: genealogy
+--
+
+CREATE SEQUENCE "place-part-type_id_seq"
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public."place-part-type_id_seq" OWNER TO genealogy;
+
+--
+-- Name: place-part-type_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: genealogy
+--
+
+ALTER SEQUENCE "place-part-type_id_seq" OWNED BY "place-part-type".id;
+
+
+--
+-- Name: place_id_seq; Type: SEQUENCE; Schema: public; Owner: genealogy
+--
+
+CREATE SEQUENCE place_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.place_id_seq OWNER TO genealogy;
+
+--
+-- Name: place_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: genealogy
+--
+
+ALTER SEQUENCE place_id_seq OWNED BY place.id;
+
+
+--
+-- Name: project; Type: TABLE; Schema: public; Owner: genealogy; Tablespace: 
+--
+
+CREATE TABLE project (
+    id integer NOT NULL,
+    name character varying(255) DEFAULT ''::character varying NOT NULL,
+    description text DEFAULT ''::text NOT NULL,
+    client_data text DEFAULT ''::text NOT NULL,
+    created_at timestamp with time zone NOT NULL,
+    updated_at timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE public.project OWNER TO genealogy;
+
+--
+-- Name: project_id_seq; Type: SEQUENCE; Schema: public; Owner: genealogy
+--
+
+CREATE SEQUENCE project_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.project_id_seq OWNER TO genealogy;
+
+--
+-- Name: project_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: genealogy
+--
+
+ALTER SEQUENCE project_id_seq OWNED BY project.id;
+
+
+--
+-- Name: repository; Type: TABLE; Schema: public; Owner: genealogy; Tablespace: 
+--
+
+CREATE TABLE repository (
+    id integer NOT NULL,
+    place_id integer NOT NULL,
+    name character varying(255) DEFAULT ''::character varying NOT NULL,
+    address character varying(255) DEFAULT ''::character varying NOT NULL,
+    phone character varying(255) DEFAULT ''::character varying NOT NULL,
+    hours character varying(255) DEFAULT ''::character varying NOT NULL,
+    comments text DEFAULT ''::text NOT NULL,
+    created_at timestamp with time zone NOT NULL,
+    updated_at timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE public.repository OWNER TO genealogy;
+
+--
+-- Name: repository_id_seq; Type: SEQUENCE; Schema: public; Owner: genealogy
+--
+
+CREATE SEQUENCE repository_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.repository_id_seq OWNER TO genealogy;
+
+--
+-- Name: repository_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: genealogy
+--
+
+ALTER SEQUENCE repository_id_seq OWNED BY repository.id;
+
+
+--
+-- Name: repository_source; Type: TABLE; Schema: public; Owner: genealogy; Tablespace: 
+--
+
+CREATE TABLE repository_source (
+    repository_id integer,
+    source_id integer,
+    activity_id integer NOT NULL,
+    call_number character varying(255) DEFAULT ''::character varying NOT NULL,
+    description text DEFAULT ''::text NOT NULL,
+    created_at timestamp with time zone NOT NULL,
+    updated_at timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE public.repository_source OWNER TO genealogy;
+
+--
+-- Name: representation; Type: TABLE; Schema: public; Owner: genealogy; Tablespace: 
+--
+
+CREATE TABLE representation (
+    source_id integer NOT NULL,
+    representation_type_id integer NOT NULL,
+    physical_file_code character varying(255) DEFAULT ''::character varying NOT NULL,
+    medium character varying(255) DEFAULT ''::character varying NOT NULL,
+    content text DEFAULT ''::text NOT NULL,
+    comments text DEFAULT ''::text NOT NULL,
+    created_at timestamp with time zone NOT NULL,
+    updated_at timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE public.representation OWNER TO genealogy;
+
+--
+-- Name: representation-type; Type: TABLE; Schema: public; Owner: genealogy; Tablespace: 
+--
+
+CREATE TABLE "representation-type" (
+    id integer NOT NULL,
+    name character varying(255) DEFAULT ''::character varying NOT NULL,
+    created_at timestamp with time zone NOT NULL,
+    updated_at timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE public."representation-type" OWNER TO genealogy;
+
+--
+-- Name: representation-type_id_seq; Type: SEQUENCE; Schema: public; Owner: genealogy
+--
+
+CREATE SEQUENCE "representation-type_id_seq"
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public."representation-type_id_seq" OWNER TO genealogy;
+
+--
+-- Name: representation-type_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: genealogy
+--
+
+ALTER SEQUENCE "representation-type_id_seq" OWNED BY "representation-type".id;
+
+
+--
+-- Name: research-objective; Type: TABLE; Schema: public; Owner: genealogy; Tablespace: 
+--
+
+CREATE TABLE "research-objective" (
+    id integer NOT NULL,
+    project_id integer NOT NULL,
+    name character varying(255) DEFAULT ''::character varying NOT NULL,
+    description text DEFAULT ''::text NOT NULL,
+    sequence_number integer NOT NULL,
+    priority character varying(255) DEFAULT ''::character varying NOT NULL,
+    status character varying(255) DEFAULT 'open'::character varying NOT NULL,
+    created_at timestamp with time zone NOT NULL,
+    updated_at timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE public."research-objective" OWNER TO genealogy;
+
+--
+-- Name: research-objective_activity; Type: TABLE; Schema: public; Owner: genealogy; Tablespace: 
+--
+
+CREATE TABLE "research-objective_activity" (
+    research_objective_id integer NOT NULL,
+    activity_id integer NOT NULL,
+    created_at timestamp with time zone NOT NULL,
+    updated_at timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE public."research-objective_activity" OWNER TO genealogy;
+
+--
+-- Name: research-objective_id_seq; Type: SEQUENCE; Schema: public; Owner: genealogy
+--
+
+CREATE SEQUENCE "research-objective_id_seq"
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public."research-objective_id_seq" OWNER TO genealogy;
+
+--
+-- Name: research-objective_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: genealogy
+--
+
+ALTER SEQUENCE "research-objective_id_seq" OWNED BY "research-objective".id;
+
+
+--
+-- Name: researcher; Type: TABLE; Schema: public; Owner: genealogy; Tablespace: 
+--
+
+CREATE TABLE researcher (
+    id integer NOT NULL,
+    email character varying(255) NOT NULL,
+    name character varying(255) DEFAULT ''::character varying NOT NULL,
+    salt character varying(255) NOT NULL,
+    password character varying(255) NOT NULL,
+    address_id integer NOT NULL,
+    comments text DEFAULT ''::text NOT NULL,
+    created_at timestamp with time zone NOT NULL,
+    updated_at timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE public.researcher OWNER TO genealogy;
+
+--
+-- Name: researcher_id_seq; Type: SEQUENCE; Schema: public; Owner: genealogy
+--
+
+CREATE SEQUENCE researcher_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.researcher_id_seq OWNER TO genealogy;
+
+--
+-- Name: researcher_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: genealogy
+--
+
+ALTER SEQUENCE researcher_id_seq OWNED BY researcher.id;
+
+
+--
+-- Name: researcher_project; Type: TABLE; Schema: public; Owner: genealogy; Tablespace: 
+--
+
+CREATE TABLE researcher_project (
+    id integer NOT NULL,
+    researcher_id integer NOT NULL,
+    project_id integer NOT NULL,
+    role character varying(255) DEFAULT ''::character varying NOT NULL,
+    created_at timestamp with time zone NOT NULL,
+    updated_at timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE public.researcher_project OWNER TO genealogy;
+
+--
+-- Name: researcher_project_id_seq; Type: SEQUENCE; Schema: public; Owner: genealogy
+--
+
+CREATE SEQUENCE researcher_project_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.researcher_project_id_seq OWNER TO genealogy;
+
+--
+-- Name: researcher_project_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: genealogy
+--
+
+ALTER SEQUENCE researcher_project_id_seq OWNED BY researcher_project.id;
+
+
+--
+-- Name: search; Type: TABLE; Schema: public; Owner: genealogy; Tablespace: 
+--
+
+CREATE TABLE search (
+    activity_id integer NOT NULL,
+    source_id integer NOT NULL,
+    repository_id integer NOT NULL,
+    searched_for text DEFAULT ''::text NOT NULL,
+    created_at timestamp with time zone NOT NULL,
+    updated_at timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE public.search OWNER TO genealogy;
+
+--
+-- Name: source; Type: TABLE; Schema: public; Owner: genealogy; Tablespace: 
+--
+
+CREATE TABLE source (
+    id integer NOT NULL,
+    higher_source_id integer NOT NULL,
+    subject_place_id integer NOT NULL,
+    jurisdiction_place_id integer NOT NULL,
+    researcher_id integer NOT NULL,
+    subject_date daterange NOT NULL,
+    medium character varying(255) DEFAULT ''::character varying NOT NULL,
+    comments text DEFAULT ''::text NOT NULL,
+    created_at timestamp with time zone NOT NULL,
+    updated_at timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE public.source OWNER TO genealogy;
+
+--
+-- Name: source-group; Type: TABLE; Schema: public; Owner: genealogy; Tablespace: 
+--
+
+CREATE TABLE "source-group" (
+    id integer NOT NULL,
+    name character varying(255) DEFAULT ''::character varying NOT NULL,
+    created_at timestamp with time zone NOT NULL,
+    updated_at timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE public."source-group" OWNER TO genealogy;
+
+--
+-- Name: source-group_id_seq; Type: SEQUENCE; Schema: public; Owner: genealogy
+--
+
+CREATE SEQUENCE "source-group_id_seq"
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public."source-group_id_seq" OWNER TO genealogy;
+
+--
+-- Name: source-group_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: genealogy
+--
+
+ALTER SEQUENCE "source-group_id_seq" OWNED BY "source-group".id;
+
+
+--
+-- Name: source-group_source; Type: TABLE; Schema: public; Owner: genealogy; Tablespace: 
+--
+
+CREATE TABLE "source-group_source" (
+    source_id integer NOT NULL,
+    source_group_id integer NOT NULL,
+    created_at timestamp with time zone NOT NULL,
+    updated_at timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE public."source-group_source" OWNER TO genealogy;
+
+--
+-- Name: source_id_seq; Type: SEQUENCE; Schema: public; Owner: genealogy
+--
+
+CREATE SEQUENCE source_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.source_id_seq OWNER TO genealogy;
+
+--
+-- Name: source_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: genealogy
+--
+
+ALTER SEQUENCE source_id_seq OWNED BY source.id;
+
+
+--
+-- Name: surety-scheme; Type: TABLE; Schema: public; Owner: genealogy; Tablespace: 
+--
+
+CREATE TABLE "surety-scheme" (
+    id integer NOT NULL,
+    name character varying(255) DEFAULT ''::character varying NOT NULL,
+    description text DEFAULT ''::text NOT NULL,
+    created_at timestamp with time zone NOT NULL,
+    updated_at timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE public."surety-scheme" OWNER TO genealogy;
+
+--
+-- Name: surety-scheme-part; Type: TABLE; Schema: public; Owner: genealogy; Tablespace: 
+--
+
+CREATE TABLE "surety-scheme-part" (
+    id integer NOT NULL,
+    surety_scheme_id integer NOT NULL,
+    name character varying(255) DEFAULT ''::character varying NOT NULL,
+    description text DEFAULT ''::text NOT NULL,
+    sequence_number integer NOT NULL,
+    created_at timestamp with time zone NOT NULL,
+    updated_at timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE public."surety-scheme-part" OWNER TO genealogy;
+
+--
+-- Name: surety-scheme-part_id_seq; Type: SEQUENCE; Schema: public; Owner: genealogy
+--
+
+CREATE SEQUENCE "surety-scheme-part_id_seq"
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public."surety-scheme-part_id_seq" OWNER TO genealogy;
+
+--
+-- Name: surety-scheme-part_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: genealogy
+--
+
+ALTER SEQUENCE "surety-scheme-part_id_seq" OWNED BY "surety-scheme-part".id;
+
+
+--
+-- Name: surety-scheme_id_seq; Type: SEQUENCE; Schema: public; Owner: genealogy
+--
+
+CREATE SEQUENCE "surety-scheme_id_seq"
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public."surety-scheme_id_seq" OWNER TO genealogy;
+
+--
+-- Name: surety-scheme_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: genealogy
+--
+
+ALTER SEQUENCE "surety-scheme_id_seq" OWNED BY "surety-scheme".id;
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: genealogy
+--
+
+ALTER TABLE ONLY activity ALTER COLUMN id SET DEFAULT nextval('activity_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: genealogy
+--
+
+ALTER TABLE ONLY assertion ALTER COLUMN id SET DEFAULT nextval('assertion_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: genealogy
+--
+
+ALTER TABLE ONLY characteristic ALTER COLUMN id SET DEFAULT nextval('characteristic_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: genealogy
+--
+
+ALTER TABLE ONLY "characteristic-part" ALTER COLUMN id SET DEFAULT nextval('"characteristic-part_id_seq"'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: genealogy
+--
+
+ALTER TABLE ONLY "characteristic-part-type" ALTER COLUMN id SET DEFAULT nextval('"characteristic-part-type_id_seq"'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: genealogy
+--
+
+ALTER TABLE ONLY "citation-part-type" ALTER COLUMN id SET DEFAULT nextval('"citation-part-type_id_seq"'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: genealogy
+--
+
+ALTER TABLE ONLY event ALTER COLUMN id SET DEFAULT nextval('event_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: genealogy
+--
+
+ALTER TABLE ONLY "event-type" ALTER COLUMN id SET DEFAULT nextval('"event-type_id_seq"'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: genealogy
+--
+
+ALTER TABLE ONLY "event-type-role" ALTER COLUMN id SET DEFAULT nextval('"event-type-role_id_seq"'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: genealogy
+--
+
+ALTER TABLE ONLY "group" ALTER COLUMN id SET DEFAULT nextval('group_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: genealogy
+--
+
+ALTER TABLE ONLY "group-type" ALTER COLUMN id SET DEFAULT nextval('"group-type_id_seq"'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: genealogy
+--
+
+ALTER TABLE ONLY "group-type-role" ALTER COLUMN id SET DEFAULT nextval('"group-type-role_id_seq"'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: genealogy
+--
+
+ALTER TABLE ONLY persona ALTER COLUMN id SET DEFAULT nextval('persona_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: genealogy
+--
+
+ALTER TABLE ONLY place ALTER COLUMN id SET DEFAULT nextval('place_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: genealogy
+--
+
+ALTER TABLE ONLY "place-part-type" ALTER COLUMN id SET DEFAULT nextval('"place-part-type_id_seq"'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: genealogy
+--
+
+ALTER TABLE ONLY project ALTER COLUMN id SET DEFAULT nextval('project_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: genealogy
+--
+
+ALTER TABLE ONLY repository ALTER COLUMN id SET DEFAULT nextval('repository_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: genealogy
+--
+
+ALTER TABLE ONLY "representation-type" ALTER COLUMN id SET DEFAULT nextval('"representation-type_id_seq"'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: genealogy
+--
+
+ALTER TABLE ONLY "research-objective" ALTER COLUMN id SET DEFAULT nextval('"research-objective_id_seq"'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: genealogy
+--
+
+ALTER TABLE ONLY researcher ALTER COLUMN id SET DEFAULT nextval('researcher_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: genealogy
+--
+
+ALTER TABLE ONLY researcher_project ALTER COLUMN id SET DEFAULT nextval('researcher_project_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: genealogy
+--
+
+ALTER TABLE ONLY source ALTER COLUMN id SET DEFAULT nextval('source_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: genealogy
+--
+
+ALTER TABLE ONLY "source-group" ALTER COLUMN id SET DEFAULT nextval('"source-group_id_seq"'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: genealogy
+--
+
+ALTER TABLE ONLY "surety-scheme" ALTER COLUMN id SET DEFAULT nextval('"surety-scheme_id_seq"'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: genealogy
+--
+
+ALTER TABLE ONLY "surety-scheme-part" ALTER COLUMN id SET DEFAULT nextval('"surety-scheme-part_id_seq"'::regclass);
+
+
+--
+-- Data for Name: activity; Type: TABLE DATA; Schema: public; Owner: genealogy
+--
+
+COPY activity (id, researcher_id, scheduled_date, completed_date, activity_type, activity_id, status, description, priority, comments, created_at, updated_at) FROM stdin;
+\.
+
+
+--
+-- Name: activity_id_seq; Type: SEQUENCE SET; Schema: public; Owner: genealogy
+--
+
+SELECT pg_catalog.setval('activity_id_seq', 1, false);
+
+
+--
+-- Data for Name: administrative-task; Type: TABLE DATA; Schema: public; Owner: genealogy
+--
+
+COPY "administrative-task" (activity_id, created_at, updated_at) FROM stdin;
+\.
+
+
+--
+-- Data for Name: assertion; Type: TABLE DATA; Schema: public; Owner: genealogy
+--
+
+COPY assertion (id, surety_scheme_part_id, researcher_id, source_id, subject_1_type, subject_1_id, subject_2_type, subject_2_id, value_id, value_type, rationale, disproved, created_at, updated_at) FROM stdin;
+\.
+
+
+--
+-- Data for Name: assertion_assertion; Type: TABLE DATA; Schema: public; Owner: genealogy
+--
+
+COPY assertion_assertion (assertion_low_id, assertion_high_id, sequence_number, created_at, updated_at) FROM stdin;
+\.
+
+
+--
+-- Name: assertion_id_seq; Type: SEQUENCE SET; Schema: public; Owner: genealogy
+--
+
+SELECT pg_catalog.setval('assertion_id_seq', 1, false);
+
+
+--
+-- Data for Name: characteristic; Type: TABLE DATA; Schema: public; Owner: genealogy
+--
+
+COPY characteristic (id, place_id, date, ascending_descending_none, created_at, updated_at) FROM stdin;
+\.
+
+
+--
+-- Data for Name: characteristic-part; Type: TABLE DATA; Schema: public; Owner: genealogy
+--
+
+COPY "characteristic-part" (id, characteristic_id, characteristic_part_type_id, name, sequence_number, created_at, updated_at) FROM stdin;
+\.
+
+
+--
+-- Data for Name: characteristic-part-type; Type: TABLE DATA; Schema: public; Owner: genealogy
+--
+
+COPY "characteristic-part-type" (id, name, created_at, updated_at) FROM stdin;
+\.
+
+
+--
+-- Name: characteristic-part-type_id_seq; Type: SEQUENCE SET; Schema: public; Owner: genealogy
+--
+
+SELECT pg_catalog.setval('"characteristic-part-type_id_seq"', 1, false);
+
+
+--
+-- Name: characteristic-part_id_seq; Type: SEQUENCE SET; Schema: public; Owner: genealogy
+--
+
+SELECT pg_catalog.setval('"characteristic-part_id_seq"', 1, false);
+
+
+--
+-- Name: characteristic_id_seq; Type: SEQUENCE SET; Schema: public; Owner: genealogy
+--
+
+SELECT pg_catalog.setval('characteristic_id_seq', 1, false);
+
+
+--
+-- Data for Name: citation-part; Type: TABLE DATA; Schema: public; Owner: genealogy
+--
+
+COPY "citation-part" (source_id, citation_part_type_id, citation_part_value, created_at, updated_at) FROM stdin;
+\.
+
+
+--
+-- Data for Name: citation-part-type; Type: TABLE DATA; Schema: public; Owner: genealogy
+--
+
+COPY "citation-part-type" (id, name, created_at, updated_at) FROM stdin;
+\.
+
+
+--
+-- Name: citation-part-type_id_seq; Type: SEQUENCE SET; Schema: public; Owner: genealogy
+--
+
+SELECT pg_catalog.setval('"citation-part-type_id_seq"', 1, false);
+
+
+--
+-- Data for Name: event; Type: TABLE DATA; Schema: public; Owner: genealogy
+--
+
+COPY event (id, event_type_id, place_id, name, date, created_at, updated_at) FROM stdin;
+\.
+
+
+--
+-- Data for Name: event-type; Type: TABLE DATA; Schema: public; Owner: genealogy
+--
+
+COPY "event-type" (id, name, created_at, updated_at) FROM stdin;
+\.
+
+
+--
+-- Data for Name: event-type-role; Type: TABLE DATA; Schema: public; Owner: genealogy
+--
+
+COPY "event-type-role" (id, event_type_id, name, created_at, updated_at) FROM stdin;
+\.
+
+
+--
+-- Name: event-type-role_id_seq; Type: SEQUENCE SET; Schema: public; Owner: genealogy
+--
+
+SELECT pg_catalog.setval('"event-type-role_id_seq"', 1, false);
+
+
+--
+-- Name: event-type_id_seq; Type: SEQUENCE SET; Schema: public; Owner: genealogy
+--
+
+SELECT pg_catalog.setval('"event-type_id_seq"', 1, false);
+
+
+--
+-- Name: event_id_seq; Type: SEQUENCE SET; Schema: public; Owner: genealogy
+--
+
+SELECT pg_catalog.setval('event_id_seq', 1, false);
+
+
+--
+-- Data for Name: group; Type: TABLE DATA; Schema: public; Owner: genealogy
+--
+
+COPY "group" (id, group_type_id, place_id, name, date, criteria, created_at, updated_at) FROM stdin;
+\.
+
+
+--
+-- Data for Name: group-type; Type: TABLE DATA; Schema: public; Owner: genealogy
+--
+
+COPY "group-type" (id, name, ascending_descending_none, created_at, updated_at) FROM stdin;
+\.
+
+
+--
+-- Data for Name: group-type-role; Type: TABLE DATA; Schema: public; Owner: genealogy
+--
+
+COPY "group-type-role" (id, group_type_id, name, sequence_number, created_at, updated_at) FROM stdin;
+\.
+
+
+--
+-- Name: group-type-role_id_seq; Type: SEQUENCE SET; Schema: public; Owner: genealogy
+--
+
+SELECT pg_catalog.setval('"group-type-role_id_seq"', 1, false);
+
+
+--
+-- Name: group-type_id_seq; Type: SEQUENCE SET; Schema: public; Owner: genealogy
+--
+
+SELECT pg_catalog.setval('"group-type_id_seq"', 1, false);
+
+
+--
+-- Name: group_id_seq; Type: SEQUENCE SET; Schema: public; Owner: genealogy
+--
+
+SELECT pg_catalog.setval('group_id_seq', 1, false);
+
+
+--
+-- Data for Name: persona; Type: TABLE DATA; Schema: public; Owner: genealogy
+--
+
+COPY persona (id, name, comments, created_at, updated_at) FROM stdin;
+\.
+
+
+--
+-- Name: persona_id_seq; Type: SEQUENCE SET; Schema: public; Owner: genealogy
+--
+
+SELECT pg_catalog.setval('persona_id_seq', 1, false);
+
+
+--
+-- Data for Name: place; Type: TABLE DATA; Schema: public; Owner: genealogy
+--
+
+COPY place (id, existence_date, ascending_descending_none, created_at, updated_at) FROM stdin;
+\.
+
+
+--
+-- Data for Name: place-part; Type: TABLE DATA; Schema: public; Owner: genealogy
+--
+
+COPY "place-part" (place_part_type_id, place_id, name, sequence_number, created_at, updated_at) FROM stdin;
+\.
+
+
+--
+-- Data for Name: place-part-type; Type: TABLE DATA; Schema: public; Owner: genealogy
+--
+
+COPY "place-part-type" (id, name, created_at, updated_at) FROM stdin;
+1	Country	2014-08-20 02:35:22.840506+00	2014-08-20 02:35:22.840506+00
+2	State	2014-08-20 02:35:52.689242+00	2014-08-20 02:35:52.689242+00
+3	Province	2014-08-20 02:36:16.300486+00	2014-08-20 02:36:16.300486+00
+4	County	2014-08-20 02:36:26.194177+00	2014-08-20 02:36:26.194177+00
+5	City/Town/Village	2014-08-20 02:39:19.070054+00	2014-08-20 02:39:19.070054+00
+6	Ocean	2014-08-20 02:39:32.083148+00	2014-08-20 02:39:32.083148+00
+7	Hospital	2014-08-20 02:39:37.011084+00	2014-08-20 02:39:37.011084+00
+\.
+
+
+--
+-- Name: place-part-type_id_seq; Type: SEQUENCE SET; Schema: public; Owner: genealogy
+--
+
+SELECT pg_catalog.setval('"place-part-type_id_seq"', 7, true);
+
+
+--
+-- Name: place_id_seq; Type: SEQUENCE SET; Schema: public; Owner: genealogy
+--
+
+SELECT pg_catalog.setval('place_id_seq', 1, false);
+
+
+--
+-- Data for Name: project; Type: TABLE DATA; Schema: public; Owner: genealogy
+--
+
+COPY project (id, name, description, client_data, created_at, updated_at) FROM stdin;
+\.
+
+
+--
+-- Name: project_id_seq; Type: SEQUENCE SET; Schema: public; Owner: genealogy
+--
+
+SELECT pg_catalog.setval('project_id_seq', 1, false);
+
+
+--
+-- Data for Name: repository; Type: TABLE DATA; Schema: public; Owner: genealogy
+--
+
+COPY repository (id, place_id, name, address, phone, hours, comments, created_at, updated_at) FROM stdin;
+\.
+
+
+--
+-- Name: repository_id_seq; Type: SEQUENCE SET; Schema: public; Owner: genealogy
+--
+
+SELECT pg_catalog.setval('repository_id_seq', 1, false);
+
+
+--
+-- Data for Name: repository_source; Type: TABLE DATA; Schema: public; Owner: genealogy
+--
+
+COPY repository_source (repository_id, source_id, activity_id, call_number, description, created_at, updated_at) FROM stdin;
+\.
+
+
+--
+-- Data for Name: representation; Type: TABLE DATA; Schema: public; Owner: genealogy
+--
+
+COPY representation (source_id, representation_type_id, physical_file_code, medium, content, comments, created_at, updated_at) FROM stdin;
+\.
+
+
+--
+-- Data for Name: representation-type; Type: TABLE DATA; Schema: public; Owner: genealogy
+--
+
+COPY "representation-type" (id, name, created_at, updated_at) FROM stdin;
+\.
+
+
+--
+-- Name: representation-type_id_seq; Type: SEQUENCE SET; Schema: public; Owner: genealogy
+--
+
+SELECT pg_catalog.setval('"representation-type_id_seq"', 1, false);
+
+
+--
+-- Data for Name: research-objective; Type: TABLE DATA; Schema: public; Owner: genealogy
+--
+
+COPY "research-objective" (id, project_id, name, description, sequence_number, priority, status, created_at, updated_at) FROM stdin;
+\.
+
+
+--
+-- Data for Name: research-objective_activity; Type: TABLE DATA; Schema: public; Owner: genealogy
+--
+
+COPY "research-objective_activity" (research_objective_id, activity_id, created_at, updated_at) FROM stdin;
+\.
+
+
+--
+-- Name: research-objective_id_seq; Type: SEQUENCE SET; Schema: public; Owner: genealogy
+--
+
+SELECT pg_catalog.setval('"research-objective_id_seq"', 1, false);
+
+
+--
+-- Data for Name: researcher; Type: TABLE DATA; Schema: public; Owner: genealogy
+--
+
+COPY researcher (id, email, name, salt, password, address_id, comments, created_at, updated_at) FROM stdin;
+\.
+
+
+--
+-- Name: researcher_id_seq; Type: SEQUENCE SET; Schema: public; Owner: genealogy
+--
+
+SELECT pg_catalog.setval('researcher_id_seq', 1, false);
+
+
+--
+-- Data for Name: researcher_project; Type: TABLE DATA; Schema: public; Owner: genealogy
+--
+
+COPY researcher_project (id, researcher_id, project_id, role, created_at, updated_at) FROM stdin;
+\.
+
+
+--
+-- Name: researcher_project_id_seq; Type: SEQUENCE SET; Schema: public; Owner: genealogy
+--
+
+SELECT pg_catalog.setval('researcher_project_id_seq', 1, false);
+
+
+--
+-- Data for Name: search; Type: TABLE DATA; Schema: public; Owner: genealogy
+--
+
+COPY search (activity_id, source_id, repository_id, searched_for, created_at, updated_at) FROM stdin;
+\.
+
+
+--
+-- Data for Name: source; Type: TABLE DATA; Schema: public; Owner: genealogy
+--
+
+COPY source (id, higher_source_id, subject_place_id, jurisdiction_place_id, researcher_id, subject_date, medium, comments, created_at, updated_at) FROM stdin;
+\.
+
+
+--
+-- Data for Name: source-group; Type: TABLE DATA; Schema: public; Owner: genealogy
+--
+
+COPY "source-group" (id, name, created_at, updated_at) FROM stdin;
+\.
+
+
+--
+-- Name: source-group_id_seq; Type: SEQUENCE SET; Schema: public; Owner: genealogy
+--
+
+SELECT pg_catalog.setval('"source-group_id_seq"', 1, false);
+
+
+--
+-- Data for Name: source-group_source; Type: TABLE DATA; Schema: public; Owner: genealogy
+--
+
+COPY "source-group_source" (source_id, source_group_id, created_at, updated_at) FROM stdin;
+\.
+
+
+--
+-- Name: source_id_seq; Type: SEQUENCE SET; Schema: public; Owner: genealogy
+--
+
+SELECT pg_catalog.setval('source_id_seq', 1, false);
+
+
+--
+-- Data for Name: surety-scheme; Type: TABLE DATA; Schema: public; Owner: genealogy
+--
+
+COPY "surety-scheme" (id, name, description, created_at, updated_at) FROM stdin;
+\.
+
+
+--
+-- Data for Name: surety-scheme-part; Type: TABLE DATA; Schema: public; Owner: genealogy
+--
+
+COPY "surety-scheme-part" (id, surety_scheme_id, name, description, sequence_number, created_at, updated_at) FROM stdin;
+\.
+
+
+--
+-- Name: surety-scheme-part_id_seq; Type: SEQUENCE SET; Schema: public; Owner: genealogy
+--
+
+SELECT pg_catalog.setval('"surety-scheme-part_id_seq"', 1, false);
+
+
+--
+-- Name: surety-scheme_id_seq; Type: SEQUENCE SET; Schema: public; Owner: genealogy
+--
+
+SELECT pg_catalog.setval('"surety-scheme_id_seq"', 1, false);
+
+
+--
+-- Name: activity_pkey; Type: CONSTRAINT; Schema: public; Owner: genealogy; Tablespace: 
+--
+
+ALTER TABLE ONLY activity
+    ADD CONSTRAINT activity_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: assertion_pkey; Type: CONSTRAINT; Schema: public; Owner: genealogy; Tablespace: 
+--
+
+ALTER TABLE ONLY assertion
+    ADD CONSTRAINT assertion_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: characteristic-part-type_pkey; Type: CONSTRAINT; Schema: public; Owner: genealogy; Tablespace: 
+--
+
+ALTER TABLE ONLY "characteristic-part-type"
+    ADD CONSTRAINT "characteristic-part-type_pkey" PRIMARY KEY (id);
+
+
+--
+-- Name: characteristic-part_pkey; Type: CONSTRAINT; Schema: public; Owner: genealogy; Tablespace: 
+--
+
+ALTER TABLE ONLY "characteristic-part"
+    ADD CONSTRAINT "characteristic-part_pkey" PRIMARY KEY (id);
+
+
+--
+-- Name: characteristic_pkey; Type: CONSTRAINT; Schema: public; Owner: genealogy; Tablespace: 
+--
+
+ALTER TABLE ONLY characteristic
+    ADD CONSTRAINT characteristic_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: citation-part-type_pkey; Type: CONSTRAINT; Schema: public; Owner: genealogy; Tablespace: 
+--
+
+ALTER TABLE ONLY "citation-part-type"
+    ADD CONSTRAINT "citation-part-type_pkey" PRIMARY KEY (id);
+
+
+--
+-- Name: event-type-role_pkey; Type: CONSTRAINT; Schema: public; Owner: genealogy; Tablespace: 
+--
+
+ALTER TABLE ONLY "event-type-role"
+    ADD CONSTRAINT "event-type-role_pkey" PRIMARY KEY (id);
+
+
+--
+-- Name: event-type_pkey; Type: CONSTRAINT; Schema: public; Owner: genealogy; Tablespace: 
+--
+
+ALTER TABLE ONLY "event-type"
+    ADD CONSTRAINT "event-type_pkey" PRIMARY KEY (id);
+
+
+--
+-- Name: event_pkey; Type: CONSTRAINT; Schema: public; Owner: genealogy; Tablespace: 
+--
+
+ALTER TABLE ONLY event
+    ADD CONSTRAINT event_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: group-type-role_pkey; Type: CONSTRAINT; Schema: public; Owner: genealogy; Tablespace: 
+--
+
+ALTER TABLE ONLY "group-type-role"
+    ADD CONSTRAINT "group-type-role_pkey" PRIMARY KEY (id);
+
+
+--
+-- Name: group-type_pkey; Type: CONSTRAINT; Schema: public; Owner: genealogy; Tablespace: 
+--
+
+ALTER TABLE ONLY "group-type"
+    ADD CONSTRAINT "group-type_pkey" PRIMARY KEY (id);
+
+
+--
+-- Name: group_pkey; Type: CONSTRAINT; Schema: public; Owner: genealogy; Tablespace: 
+--
+
+ALTER TABLE ONLY "group"
+    ADD CONSTRAINT group_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: persona_pkey; Type: CONSTRAINT; Schema: public; Owner: genealogy; Tablespace: 
+--
+
+ALTER TABLE ONLY persona
+    ADD CONSTRAINT persona_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: place-part-type_pkey; Type: CONSTRAINT; Schema: public; Owner: genealogy; Tablespace: 
+--
+
+ALTER TABLE ONLY "place-part-type"
+    ADD CONSTRAINT "place-part-type_pkey" PRIMARY KEY (id);
+
+
+--
+-- Name: place_pkey; Type: CONSTRAINT; Schema: public; Owner: genealogy; Tablespace: 
+--
+
+ALTER TABLE ONLY place
+    ADD CONSTRAINT place_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: project_pkey; Type: CONSTRAINT; Schema: public; Owner: genealogy; Tablespace: 
+--
+
+ALTER TABLE ONLY project
+    ADD CONSTRAINT project_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: repository_pkey; Type: CONSTRAINT; Schema: public; Owner: genealogy; Tablespace: 
+--
+
+ALTER TABLE ONLY repository
+    ADD CONSTRAINT repository_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: representation-type_pkey; Type: CONSTRAINT; Schema: public; Owner: genealogy; Tablespace: 
+--
+
+ALTER TABLE ONLY "representation-type"
+    ADD CONSTRAINT "representation-type_pkey" PRIMARY KEY (id);
+
+
+--
+-- Name: research-objective_pkey; Type: CONSTRAINT; Schema: public; Owner: genealogy; Tablespace: 
+--
+
+ALTER TABLE ONLY "research-objective"
+    ADD CONSTRAINT "research-objective_pkey" PRIMARY KEY (id);
+
+
+--
+-- Name: researcher_pkey; Type: CONSTRAINT; Schema: public; Owner: genealogy; Tablespace: 
+--
+
+ALTER TABLE ONLY researcher
+    ADD CONSTRAINT researcher_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: researcher_project_pkey; Type: CONSTRAINT; Schema: public; Owner: genealogy; Tablespace: 
+--
+
+ALTER TABLE ONLY researcher_project
+    ADD CONSTRAINT researcher_project_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: search_activity_id_unique; Type: CONSTRAINT; Schema: public; Owner: genealogy; Tablespace: 
+--
+
+ALTER TABLE ONLY search
+    ADD CONSTRAINT search_activity_id_unique UNIQUE (activity_id);
+
+
+--
+-- Name: search_pkey; Type: CONSTRAINT; Schema: public; Owner: genealogy; Tablespace: 
+--
+
+ALTER TABLE ONLY search
+    ADD CONSTRAINT search_pkey PRIMARY KEY (activity_id);
+
+
+--
+-- Name: source-group_pkey; Type: CONSTRAINT; Schema: public; Owner: genealogy; Tablespace: 
+--
+
+ALTER TABLE ONLY "source-group"
+    ADD CONSTRAINT "source-group_pkey" PRIMARY KEY (id);
+
+
+--
+-- Name: source_pkey; Type: CONSTRAINT; Schema: public; Owner: genealogy; Tablespace: 
+--
+
+ALTER TABLE ONLY source
+    ADD CONSTRAINT source_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: surety-scheme-part_pkey; Type: CONSTRAINT; Schema: public; Owner: genealogy; Tablespace: 
+--
+
+ALTER TABLE ONLY "surety-scheme-part"
+    ADD CONSTRAINT "surety-scheme-part_pkey" PRIMARY KEY (id);
+
+
+--
+-- Name: surety-scheme_pkey; Type: CONSTRAINT; Schema: public; Owner: genealogy; Tablespace: 
+--
+
+ALTER TABLE ONLY "surety-scheme"
+    ADD CONSTRAINT "surety-scheme_pkey" PRIMARY KEY (id);
+
+
+--
+-- Name: assertion_source_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: genealogy
+--
+
+ALTER TABLE ONLY assertion
+    ADD CONSTRAINT assertion_source_id_foreign FOREIGN KEY (source_id) REFERENCES source(id);
+
+
+--
+-- Name: assertion_surety_scheme_part_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: genealogy
+--
+
+ALTER TABLE ONLY assertion
+    ADD CONSTRAINT assertion_surety_scheme_part_id_foreign FOREIGN KEY (surety_scheme_part_id) REFERENCES "surety-scheme-part"(id);
+
+
+--
+-- Name: event_event_type_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: genealogy
+--
+
+ALTER TABLE ONLY event
+    ADD CONSTRAINT event_event_type_id_foreign FOREIGN KEY (event_type_id) REFERENCES "event-type"(id);
+
+
+--
+-- Name: event_type_role_event_type_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: genealogy
+--
+
+ALTER TABLE ONLY "event-type-role"
+    ADD CONSTRAINT event_type_role_event_type_id_foreign FOREIGN KEY (event_type_id) REFERENCES "event-type"(id);
+
+
+--
+-- Name: group_group_type_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: genealogy
+--
+
+ALTER TABLE ONLY "group"
+    ADD CONSTRAINT group_group_type_id_foreign FOREIGN KEY (group_type_id) REFERENCES "group-type"(id);
+
+
+--
+-- Name: group_place_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: genealogy
+--
+
+ALTER TABLE ONLY "group"
+    ADD CONSTRAINT group_place_id_foreign FOREIGN KEY (place_id) REFERENCES place(id);
+
+
+--
+-- Name: repository_place_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: genealogy
+--
+
+ALTER TABLE ONLY repository
+    ADD CONSTRAINT repository_place_id_foreign FOREIGN KEY (place_id) REFERENCES place(id);
+
+
+--
+-- Name: repository_source_repository_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: genealogy
+--
+
+ALTER TABLE ONLY repository_source
+    ADD CONSTRAINT repository_source_repository_id_foreign FOREIGN KEY (repository_id) REFERENCES repository(id);
+
+
+--
+-- Name: research_objective_project_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: genealogy
+--
+
+ALTER TABLE ONLY "research-objective"
+    ADD CONSTRAINT research_objective_project_id_foreign FOREIGN KEY (project_id) REFERENCES project(id);
+
+
+--
+-- Name: researcher_address_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: genealogy
+--
+
+ALTER TABLE ONLY researcher
+    ADD CONSTRAINT researcher_address_id_foreign FOREIGN KEY (address_id) REFERENCES place(id);
+
+
+--
+-- Name: researcher_project_project_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: genealogy
+--
+
+ALTER TABLE ONLY researcher_project
+    ADD CONSTRAINT researcher_project_project_id_foreign FOREIGN KEY (project_id) REFERENCES project(id);
+
+
+--
+-- Name: search_repository_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: genealogy
+--
+
+ALTER TABLE ONLY search
+    ADD CONSTRAINT search_repository_id_foreign FOREIGN KEY (repository_id) REFERENCES repository(id);
+
+
+--
+-- Name: search_source_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: genealogy
+--
+
+ALTER TABLE ONLY search
+    ADD CONSTRAINT search_source_id_foreign FOREIGN KEY (source_id) REFERENCES source(id);
+
+
+--
+-- Name: source_higher_source_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: genealogy
+--
+
+ALTER TABLE ONLY source
+    ADD CONSTRAINT source_higher_source_id_foreign FOREIGN KEY (higher_source_id) REFERENCES source(id);
+
+
+--
+-- Name: source_jurisdiction_place_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: genealogy
+--
+
+ALTER TABLE ONLY source
+    ADD CONSTRAINT source_jurisdiction_place_id_foreign FOREIGN KEY (jurisdiction_place_id) REFERENCES place(id);
+
+
+--
+-- Name: source_subject_place_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: genealogy
+--
+
+ALTER TABLE ONLY source
+    ADD CONSTRAINT source_subject_place_id_foreign FOREIGN KEY (subject_place_id) REFERENCES place(id);
+
+
+--
+-- Name: surety_scheme_part_surety_scheme_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: genealogy
+--
+
+ALTER TABLE ONLY "surety-scheme-part"
+    ADD CONSTRAINT surety_scheme_part_surety_scheme_id_foreign FOREIGN KEY (surety_scheme_id) REFERENCES "surety-scheme"(id);
+
+
+--
+-- PostgreSQL database dump complete
+--
+

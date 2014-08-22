@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta description="{{description}}">
+    <title>{{title}}</title>
+    <!--Application CSS Files-->
+    {{#each cssFiles}}
+      <link rel="stylesheet" href="{{this}}">
+    {{/each}}
+</head>
+<body>
+
+    {{{body}}}
+
+    {{#each jsFiles}}
+        <script src="{{this}}"></script>
+    {{/each}}
+
+</body>
+</html>

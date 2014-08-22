@@ -1,0 +1,42 @@
+########################
+# node.js / npm
+########################
+/lib-cov
+/*.seed
+/*.log
+/*.csv
+/*.dat
+/*.out
+/*.pid
+/*.gz
+
+/pids
+/logs
+/results
+
+public/app.js
+node_modules
+bower_components
+npm-debug.log
+.tmp
+.cache
+.DS_Store
+*.sqlite3
+*.sqlite
+
+########################
+# Secretssss
+########################
+config/env/all.js
+config/env/development.js
+config/env/production.js
+
+########################
+# vagrant
+########################
+.vagrant
+
+########################
+# Deployment Keys
+########################
+deploy/keys
