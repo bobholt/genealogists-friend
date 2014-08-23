@@ -16,11 +16,10 @@ var app = require('./config/express')();
 require('./config/passport')();
 
 // Start the app by listening on the configured port
-app.listen(config.port, null, null, function() {
-
-  // Say it
-  console.log('Express app started on port ' + config.port);
-});
+app.listen(config.port);
 
 // Expose app
 exports = module.exports = app;
+
+// Say it
+console.log('Express app started on port ' + config.port);

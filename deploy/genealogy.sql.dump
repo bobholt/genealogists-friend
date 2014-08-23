@@ -10,14 +10,14 @@ SET check_function_bodies = false;
 SET client_min_messages = warning;
 
 --
--- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner:
 --
 
 CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
 
 
 --
--- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner:
 --
 
 COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
@@ -30,7 +30,7 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
--- Name: activity; Type: TABLE; Schema: public; Owner: genealogy; Tablespace: 
+-- Name: activity; Type: TABLE; Schema: public; Owner: genealogy; Tablespace:
 --
 
 CREATE TABLE activity (
@@ -73,7 +73,7 @@ ALTER SEQUENCE activity_id_seq OWNED BY activity.id;
 
 
 --
--- Name: administrative-task; Type: TABLE; Schema: public; Owner: genealogy; Tablespace: 
+-- Name: administrative-task; Type: TABLE; Schema: public; Owner: genealogy; Tablespace:
 --
 
 CREATE TABLE "administrative-task" (
@@ -86,7 +86,7 @@ CREATE TABLE "administrative-task" (
 ALTER TABLE public."administrative-task" OWNER TO genealogy;
 
 --
--- Name: assertion; Type: TABLE; Schema: public; Owner: genealogy; Tablespace: 
+-- Name: assertion; Type: TABLE; Schema: public; Owner: genealogy; Tablespace:
 --
 
 CREATE TABLE assertion (
@@ -110,7 +110,7 @@ CREATE TABLE assertion (
 ALTER TABLE public.assertion OWNER TO genealogy;
 
 --
--- Name: assertion_assertion; Type: TABLE; Schema: public; Owner: genealogy; Tablespace: 
+-- Name: assertion_assertion; Type: TABLE; Schema: public; Owner: genealogy; Tablespace:
 --
 
 CREATE TABLE assertion_assertion (
@@ -146,7 +146,7 @@ ALTER SEQUENCE assertion_id_seq OWNED BY assertion.id;
 
 
 --
--- Name: characteristic; Type: TABLE; Schema: public; Owner: genealogy; Tablespace: 
+-- Name: characteristic; Type: TABLE; Schema: public; Owner: genealogy; Tablespace:
 --
 
 CREATE TABLE characteristic (
@@ -162,7 +162,7 @@ CREATE TABLE characteristic (
 ALTER TABLE public.characteristic OWNER TO genealogy;
 
 --
--- Name: characteristic-part; Type: TABLE; Schema: public; Owner: genealogy; Tablespace: 
+-- Name: characteristic-part; Type: TABLE; Schema: public; Owner: genealogy; Tablespace:
 --
 
 CREATE TABLE "characteristic-part" (
@@ -179,7 +179,7 @@ CREATE TABLE "characteristic-part" (
 ALTER TABLE public."characteristic-part" OWNER TO genealogy;
 
 --
--- Name: characteristic-part-type; Type: TABLE; Schema: public; Owner: genealogy; Tablespace: 
+-- Name: characteristic-part-type; Type: TABLE; Schema: public; Owner: genealogy; Tablespace:
 --
 
 CREATE TABLE "characteristic-part-type" (
@@ -256,7 +256,7 @@ ALTER SEQUENCE characteristic_id_seq OWNED BY characteristic.id;
 
 
 --
--- Name: citation-part; Type: TABLE; Schema: public; Owner: genealogy; Tablespace: 
+-- Name: citation-part; Type: TABLE; Schema: public; Owner: genealogy; Tablespace:
 --
 
 CREATE TABLE "citation-part" (
@@ -271,7 +271,7 @@ CREATE TABLE "citation-part" (
 ALTER TABLE public."citation-part" OWNER TO genealogy;
 
 --
--- Name: citation-part-type; Type: TABLE; Schema: public; Owner: genealogy; Tablespace: 
+-- Name: citation-part-type; Type: TABLE; Schema: public; Owner: genealogy; Tablespace:
 --
 
 CREATE TABLE "citation-part-type" (
@@ -306,7 +306,7 @@ ALTER SEQUENCE "citation-part-type_id_seq" OWNED BY "citation-part-type".id;
 
 
 --
--- Name: event; Type: TABLE; Schema: public; Owner: genealogy; Tablespace: 
+-- Name: event; Type: TABLE; Schema: public; Owner: genealogy; Tablespace:
 --
 
 CREATE TABLE event (
@@ -323,7 +323,7 @@ CREATE TABLE event (
 ALTER TABLE public.event OWNER TO genealogy;
 
 --
--- Name: event-type; Type: TABLE; Schema: public; Owner: genealogy; Tablespace: 
+-- Name: event-type; Type: TABLE; Schema: public; Owner: genealogy; Tablespace:
 --
 
 CREATE TABLE "event-type" (
@@ -337,7 +337,7 @@ CREATE TABLE "event-type" (
 ALTER TABLE public."event-type" OWNER TO genealogy;
 
 --
--- Name: event-type-role; Type: TABLE; Schema: public; Owner: genealogy; Tablespace: 
+-- Name: event-type-role; Type: TABLE; Schema: public; Owner: genealogy; Tablespace:
 --
 
 CREATE TABLE "event-type-role" (
@@ -415,7 +415,7 @@ ALTER SEQUENCE event_id_seq OWNED BY event.id;
 
 
 --
--- Name: group; Type: TABLE; Schema: public; Owner: genealogy; Tablespace: 
+-- Name: group; Type: TABLE; Schema: public; Owner: genealogy; Tablespace:
 --
 
 CREATE TABLE "group" (
@@ -433,7 +433,7 @@ CREATE TABLE "group" (
 ALTER TABLE public."group" OWNER TO genealogy;
 
 --
--- Name: group-type; Type: TABLE; Schema: public; Owner: genealogy; Tablespace: 
+-- Name: group-type; Type: TABLE; Schema: public; Owner: genealogy; Tablespace:
 --
 
 CREATE TABLE "group-type" (
@@ -448,7 +448,7 @@ CREATE TABLE "group-type" (
 ALTER TABLE public."group-type" OWNER TO genealogy;
 
 --
--- Name: group-type-role; Type: TABLE; Schema: public; Owner: genealogy; Tablespace: 
+-- Name: group-type-role; Type: TABLE; Schema: public; Owner: genealogy; Tablespace:
 --
 
 CREATE TABLE "group-type-role" (
@@ -527,7 +527,7 @@ ALTER SEQUENCE group_id_seq OWNED BY "group".id;
 
 
 --
--- Name: persona; Type: TABLE; Schema: public; Owner: genealogy; Tablespace: 
+-- Name: persona; Type: TABLE; Schema: public; Owner: genealogy; Tablespace:
 --
 
 CREATE TABLE persona (
@@ -563,7 +563,7 @@ ALTER SEQUENCE persona_id_seq OWNED BY persona.id;
 
 
 --
--- Name: place; Type: TABLE; Schema: public; Owner: genealogy; Tablespace: 
+-- Name: place; Type: TABLE; Schema: public; Owner: genealogy; Tablespace:
 --
 
 CREATE TABLE place (
@@ -578,7 +578,7 @@ CREATE TABLE place (
 ALTER TABLE public.place OWNER TO genealogy;
 
 --
--- Name: place-part; Type: TABLE; Schema: public; Owner: genealogy; Tablespace: 
+-- Name: place-part; Type: TABLE; Schema: public; Owner: genealogy; Tablespace:
 --
 
 CREATE TABLE "place-part" (
@@ -594,7 +594,7 @@ CREATE TABLE "place-part" (
 ALTER TABLE public."place-part" OWNER TO genealogy;
 
 --
--- Name: place-part-type; Type: TABLE; Schema: public; Owner: genealogy; Tablespace: 
+-- Name: place-part-type; Type: TABLE; Schema: public; Owner: genealogy; Tablespace:
 --
 
 CREATE TABLE "place-part-type" (
@@ -650,7 +650,7 @@ ALTER SEQUENCE place_id_seq OWNED BY place.id;
 
 
 --
--- Name: project; Type: TABLE; Schema: public; Owner: genealogy; Tablespace: 
+-- Name: project; Type: TABLE; Schema: public; Owner: genealogy; Tablespace:
 --
 
 CREATE TABLE project (
@@ -687,7 +687,7 @@ ALTER SEQUENCE project_id_seq OWNED BY project.id;
 
 
 --
--- Name: repository; Type: TABLE; Schema: public; Owner: genealogy; Tablespace: 
+-- Name: repository; Type: TABLE; Schema: public; Owner: genealogy; Tablespace:
 --
 
 CREATE TABLE repository (
@@ -727,7 +727,7 @@ ALTER SEQUENCE repository_id_seq OWNED BY repository.id;
 
 
 --
--- Name: repository_source; Type: TABLE; Schema: public; Owner: genealogy; Tablespace: 
+-- Name: repository_source; Type: TABLE; Schema: public; Owner: genealogy; Tablespace:
 --
 
 CREATE TABLE repository_source (
@@ -744,7 +744,7 @@ CREATE TABLE repository_source (
 ALTER TABLE public.repository_source OWNER TO genealogy;
 
 --
--- Name: representation; Type: TABLE; Schema: public; Owner: genealogy; Tablespace: 
+-- Name: representation; Type: TABLE; Schema: public; Owner: genealogy; Tablespace:
 --
 
 CREATE TABLE representation (
@@ -762,7 +762,7 @@ CREATE TABLE representation (
 ALTER TABLE public.representation OWNER TO genealogy;
 
 --
--- Name: representation-type; Type: TABLE; Schema: public; Owner: genealogy; Tablespace: 
+-- Name: representation-type; Type: TABLE; Schema: public; Owner: genealogy; Tablespace:
 --
 
 CREATE TABLE "representation-type" (
@@ -797,7 +797,7 @@ ALTER SEQUENCE "representation-type_id_seq" OWNED BY "representation-type".id;
 
 
 --
--- Name: research-objective; Type: TABLE; Schema: public; Owner: genealogy; Tablespace: 
+-- Name: research-objective; Type: TABLE; Schema: public; Owner: genealogy; Tablespace:
 --
 
 CREATE TABLE "research-objective" (
@@ -816,7 +816,7 @@ CREATE TABLE "research-objective" (
 ALTER TABLE public."research-objective" OWNER TO genealogy;
 
 --
--- Name: research-objective_activity; Type: TABLE; Schema: public; Owner: genealogy; Tablespace: 
+-- Name: research-objective_activity; Type: TABLE; Schema: public; Owner: genealogy; Tablespace:
 --
 
 CREATE TABLE "research-objective_activity" (
@@ -851,16 +851,20 @@ ALTER SEQUENCE "research-objective_id_seq" OWNED BY "research-objective".id;
 
 
 --
--- Name: researcher; Type: TABLE; Schema: public; Owner: genealogy; Tablespace: 
+-- Name: researcher; Type: TABLE; Schema: public; Owner: genealogy; Tablespace:
 --
 
 CREATE TABLE researcher (
     id integer NOT NULL,
+    username character varying(255) DEFAULT ''::character varying NOT NULL,
+    "firstName" character varying(255) DEFAULT ''::character varying NOT NULL,
+    "lastName" character varying(255) DEFAULT ''::character varying NOT NULL,
+    "displayName" character varying(255) DEFAULT ''::character varying NOT NULL,
     email character varying(255) NOT NULL,
     name character varying(255) DEFAULT ''::character varying NOT NULL,
-    salt character varying(255) NOT NULL,
+    provider character varying(255) NOT NULL,
     password character varying(255) NOT NULL,
-    address_id integer NOT NULL,
+    address_id integer,
     comments text DEFAULT ''::text NOT NULL,
     created_at timestamp with time zone NOT NULL,
     updated_at timestamp with time zone NOT NULL
@@ -891,7 +895,7 @@ ALTER SEQUENCE researcher_id_seq OWNED BY researcher.id;
 
 
 --
--- Name: researcher_project; Type: TABLE; Schema: public; Owner: genealogy; Tablespace: 
+-- Name: researcher_project; Type: TABLE; Schema: public; Owner: genealogy; Tablespace:
 --
 
 CREATE TABLE researcher_project (
@@ -928,7 +932,7 @@ ALTER SEQUENCE researcher_project_id_seq OWNED BY researcher_project.id;
 
 
 --
--- Name: search; Type: TABLE; Schema: public; Owner: genealogy; Tablespace: 
+-- Name: search; Type: TABLE; Schema: public; Owner: genealogy; Tablespace:
 --
 
 CREATE TABLE search (
@@ -944,7 +948,7 @@ CREATE TABLE search (
 ALTER TABLE public.search OWNER TO genealogy;
 
 --
--- Name: source; Type: TABLE; Schema: public; Owner: genealogy; Tablespace: 
+-- Name: source; Type: TABLE; Schema: public; Owner: genealogy; Tablespace:
 --
 
 CREATE TABLE source (
@@ -964,7 +968,7 @@ CREATE TABLE source (
 ALTER TABLE public.source OWNER TO genealogy;
 
 --
--- Name: source-group; Type: TABLE; Schema: public; Owner: genealogy; Tablespace: 
+-- Name: source-group; Type: TABLE; Schema: public; Owner: genealogy; Tablespace:
 --
 
 CREATE TABLE "source-group" (
@@ -999,7 +1003,7 @@ ALTER SEQUENCE "source-group_id_seq" OWNED BY "source-group".id;
 
 
 --
--- Name: source-group_source; Type: TABLE; Schema: public; Owner: genealogy; Tablespace: 
+-- Name: source-group_source; Type: TABLE; Schema: public; Owner: genealogy; Tablespace:
 --
 
 CREATE TABLE "source-group_source" (
@@ -1034,7 +1038,7 @@ ALTER SEQUENCE source_id_seq OWNED BY source.id;
 
 
 --
--- Name: surety-scheme; Type: TABLE; Schema: public; Owner: genealogy; Tablespace: 
+-- Name: surety-scheme; Type: TABLE; Schema: public; Owner: genealogy; Tablespace:
 --
 
 CREATE TABLE "surety-scheme" (
@@ -1049,7 +1053,7 @@ CREATE TABLE "surety-scheme" (
 ALTER TABLE public."surety-scheme" OWNER TO genealogy;
 
 --
--- Name: surety-scheme-part; Type: TABLE; Schema: public; Owner: genealogy; Tablespace: 
+-- Name: surety-scheme-part; Type: TABLE; Schema: public; Owner: genealogy; Tablespace:
 --
 
 CREATE TABLE "surety-scheme-part" (
@@ -1634,7 +1638,7 @@ SELECT pg_catalog.setval('"research-objective_id_seq"', 1, false);
 -- Data for Name: researcher; Type: TABLE DATA; Schema: public; Owner: genealogy
 --
 
-COPY researcher (id, email, name, salt, password, address_id, comments, created_at, updated_at) FROM stdin;
+COPY researcher (id, username, "firstName", "lastName", "displayName", email, name, provider, password, address_id, comments, created_at, updated_at) FROM stdin;
 \.
 
 
@@ -1642,7 +1646,7 @@ COPY researcher (id, email, name, salt, password, address_id, comments, created_
 -- Name: researcher_id_seq; Type: SEQUENCE SET; Schema: public; Owner: genealogy
 --
 
-SELECT pg_catalog.setval('researcher_id_seq', 1, false);
+SELECT pg_catalog.setval('researcher_id_seq', 1, true);
 
 
 --
@@ -1737,7 +1741,7 @@ SELECT pg_catalog.setval('"surety-scheme_id_seq"', 1, false);
 
 
 --
--- Name: activity_pkey; Type: CONSTRAINT; Schema: public; Owner: genealogy; Tablespace: 
+-- Name: activity_pkey; Type: CONSTRAINT; Schema: public; Owner: genealogy; Tablespace:
 --
 
 ALTER TABLE ONLY activity
@@ -1745,7 +1749,7 @@ ALTER TABLE ONLY activity
 
 
 --
--- Name: assertion_pkey; Type: CONSTRAINT; Schema: public; Owner: genealogy; Tablespace: 
+-- Name: assertion_pkey; Type: CONSTRAINT; Schema: public; Owner: genealogy; Tablespace:
 --
 
 ALTER TABLE ONLY assertion
@@ -1753,7 +1757,7 @@ ALTER TABLE ONLY assertion
 
 
 --
--- Name: characteristic-part-type_pkey; Type: CONSTRAINT; Schema: public; Owner: genealogy; Tablespace: 
+-- Name: characteristic-part-type_pkey; Type: CONSTRAINT; Schema: public; Owner: genealogy; Tablespace:
 --
 
 ALTER TABLE ONLY "characteristic-part-type"
@@ -1761,7 +1765,7 @@ ALTER TABLE ONLY "characteristic-part-type"
 
 
 --
--- Name: characteristic-part_pkey; Type: CONSTRAINT; Schema: public; Owner: genealogy; Tablespace: 
+-- Name: characteristic-part_pkey; Type: CONSTRAINT; Schema: public; Owner: genealogy; Tablespace:
 --
 
 ALTER TABLE ONLY "characteristic-part"
@@ -1769,7 +1773,7 @@ ALTER TABLE ONLY "characteristic-part"
 
 
 --
--- Name: characteristic_pkey; Type: CONSTRAINT; Schema: public; Owner: genealogy; Tablespace: 
+-- Name: characteristic_pkey; Type: CONSTRAINT; Schema: public; Owner: genealogy; Tablespace:
 --
 
 ALTER TABLE ONLY characteristic
@@ -1777,7 +1781,7 @@ ALTER TABLE ONLY characteristic
 
 
 --
--- Name: citation-part-type_pkey; Type: CONSTRAINT; Schema: public; Owner: genealogy; Tablespace: 
+-- Name: citation-part-type_pkey; Type: CONSTRAINT; Schema: public; Owner: genealogy; Tablespace:
 --
 
 ALTER TABLE ONLY "citation-part-type"
@@ -1785,7 +1789,7 @@ ALTER TABLE ONLY "citation-part-type"
 
 
 --
--- Name: event-type-role_pkey; Type: CONSTRAINT; Schema: public; Owner: genealogy; Tablespace: 
+-- Name: event-type-role_pkey; Type: CONSTRAINT; Schema: public; Owner: genealogy; Tablespace:
 --
 
 ALTER TABLE ONLY "event-type-role"
@@ -1793,7 +1797,7 @@ ALTER TABLE ONLY "event-type-role"
 
 
 --
--- Name: event-type_pkey; Type: CONSTRAINT; Schema: public; Owner: genealogy; Tablespace: 
+-- Name: event-type_pkey; Type: CONSTRAINT; Schema: public; Owner: genealogy; Tablespace:
 --
 
 ALTER TABLE ONLY "event-type"
@@ -1801,7 +1805,7 @@ ALTER TABLE ONLY "event-type"
 
 
 --
--- Name: event_pkey; Type: CONSTRAINT; Schema: public; Owner: genealogy; Tablespace: 
+-- Name: event_pkey; Type: CONSTRAINT; Schema: public; Owner: genealogy; Tablespace:
 --
 
 ALTER TABLE ONLY event
@@ -1809,7 +1813,7 @@ ALTER TABLE ONLY event
 
 
 --
--- Name: group-type-role_pkey; Type: CONSTRAINT; Schema: public; Owner: genealogy; Tablespace: 
+-- Name: group-type-role_pkey; Type: CONSTRAINT; Schema: public; Owner: genealogy; Tablespace:
 --
 
 ALTER TABLE ONLY "group-type-role"
@@ -1817,7 +1821,7 @@ ALTER TABLE ONLY "group-type-role"
 
 
 --
--- Name: group-type_pkey; Type: CONSTRAINT; Schema: public; Owner: genealogy; Tablespace: 
+-- Name: group-type_pkey; Type: CONSTRAINT; Schema: public; Owner: genealogy; Tablespace:
 --
 
 ALTER TABLE ONLY "group-type"
@@ -1825,7 +1829,7 @@ ALTER TABLE ONLY "group-type"
 
 
 --
--- Name: group_pkey; Type: CONSTRAINT; Schema: public; Owner: genealogy; Tablespace: 
+-- Name: group_pkey; Type: CONSTRAINT; Schema: public; Owner: genealogy; Tablespace:
 --
 
 ALTER TABLE ONLY "group"
@@ -1833,7 +1837,7 @@ ALTER TABLE ONLY "group"
 
 
 --
--- Name: persona_pkey; Type: CONSTRAINT; Schema: public; Owner: genealogy; Tablespace: 
+-- Name: persona_pkey; Type: CONSTRAINT; Schema: public; Owner: genealogy; Tablespace:
 --
 
 ALTER TABLE ONLY persona
@@ -1841,7 +1845,7 @@ ALTER TABLE ONLY persona
 
 
 --
--- Name: place-part-type_pkey; Type: CONSTRAINT; Schema: public; Owner: genealogy; Tablespace: 
+-- Name: place-part-type_pkey; Type: CONSTRAINT; Schema: public; Owner: genealogy; Tablespace:
 --
 
 ALTER TABLE ONLY "place-part-type"
@@ -1849,7 +1853,7 @@ ALTER TABLE ONLY "place-part-type"
 
 
 --
--- Name: place_pkey; Type: CONSTRAINT; Schema: public; Owner: genealogy; Tablespace: 
+-- Name: place_pkey; Type: CONSTRAINT; Schema: public; Owner: genealogy; Tablespace:
 --
 
 ALTER TABLE ONLY place
@@ -1857,7 +1861,7 @@ ALTER TABLE ONLY place
 
 
 --
--- Name: project_pkey; Type: CONSTRAINT; Schema: public; Owner: genealogy; Tablespace: 
+-- Name: project_pkey; Type: CONSTRAINT; Schema: public; Owner: genealogy; Tablespace:
 --
 
 ALTER TABLE ONLY project
@@ -1865,7 +1869,7 @@ ALTER TABLE ONLY project
 
 
 --
--- Name: repository_pkey; Type: CONSTRAINT; Schema: public; Owner: genealogy; Tablespace: 
+-- Name: repository_pkey; Type: CONSTRAINT; Schema: public; Owner: genealogy; Tablespace:
 --
 
 ALTER TABLE ONLY repository
@@ -1873,7 +1877,7 @@ ALTER TABLE ONLY repository
 
 
 --
--- Name: representation-type_pkey; Type: CONSTRAINT; Schema: public; Owner: genealogy; Tablespace: 
+-- Name: representation-type_pkey; Type: CONSTRAINT; Schema: public; Owner: genealogy; Tablespace:
 --
 
 ALTER TABLE ONLY "representation-type"
@@ -1881,7 +1885,7 @@ ALTER TABLE ONLY "representation-type"
 
 
 --
--- Name: research-objective_pkey; Type: CONSTRAINT; Schema: public; Owner: genealogy; Tablespace: 
+-- Name: research-objective_pkey; Type: CONSTRAINT; Schema: public; Owner: genealogy; Tablespace:
 --
 
 ALTER TABLE ONLY "research-objective"
@@ -1889,7 +1893,15 @@ ALTER TABLE ONLY "research-objective"
 
 
 --
--- Name: researcher_pkey; Type: CONSTRAINT; Schema: public; Owner: genealogy; Tablespace: 
+-- Name: researcher_email_unique; Type: CONSTRAINT; Schema: public; Owner: genealogy; Tablespace:
+--
+
+ALTER TABLE ONLY researcher
+    ADD CONSTRAINT researcher_email_unique UNIQUE (email);
+
+
+--
+-- Name: researcher_pkey; Type: CONSTRAINT; Schema: public; Owner: genealogy; Tablespace:
 --
 
 ALTER TABLE ONLY researcher
@@ -1897,7 +1909,7 @@ ALTER TABLE ONLY researcher
 
 
 --
--- Name: researcher_project_pkey; Type: CONSTRAINT; Schema: public; Owner: genealogy; Tablespace: 
+-- Name: researcher_project_pkey; Type: CONSTRAINT; Schema: public; Owner: genealogy; Tablespace:
 --
 
 ALTER TABLE ONLY researcher_project
@@ -1905,7 +1917,15 @@ ALTER TABLE ONLY researcher_project
 
 
 --
--- Name: search_activity_id_unique; Type: CONSTRAINT; Schema: public; Owner: genealogy; Tablespace: 
+-- Name: researcher_username_unique; Type: CONSTRAINT; Schema: public; Owner: genealogy; Tablespace:
+--
+
+ALTER TABLE ONLY researcher
+    ADD CONSTRAINT researcher_username_unique UNIQUE (username);
+
+
+--
+-- Name: search_activity_id_unique; Type: CONSTRAINT; Schema: public; Owner: genealogy; Tablespace:
 --
 
 ALTER TABLE ONLY search
@@ -1913,7 +1933,7 @@ ALTER TABLE ONLY search
 
 
 --
--- Name: search_pkey; Type: CONSTRAINT; Schema: public; Owner: genealogy; Tablespace: 
+-- Name: search_pkey; Type: CONSTRAINT; Schema: public; Owner: genealogy; Tablespace:
 --
 
 ALTER TABLE ONLY search
@@ -1921,7 +1941,7 @@ ALTER TABLE ONLY search
 
 
 --
--- Name: source-group_pkey; Type: CONSTRAINT; Schema: public; Owner: genealogy; Tablespace: 
+-- Name: source-group_pkey; Type: CONSTRAINT; Schema: public; Owner: genealogy; Tablespace:
 --
 
 ALTER TABLE ONLY "source-group"
@@ -1929,7 +1949,7 @@ ALTER TABLE ONLY "source-group"
 
 
 --
--- Name: source_pkey; Type: CONSTRAINT; Schema: public; Owner: genealogy; Tablespace: 
+-- Name: source_pkey; Type: CONSTRAINT; Schema: public; Owner: genealogy; Tablespace:
 --
 
 ALTER TABLE ONLY source
@@ -1937,7 +1957,7 @@ ALTER TABLE ONLY source
 
 
 --
--- Name: surety-scheme-part_pkey; Type: CONSTRAINT; Schema: public; Owner: genealogy; Tablespace: 
+-- Name: surety-scheme-part_pkey; Type: CONSTRAINT; Schema: public; Owner: genealogy; Tablespace:
 --
 
 ALTER TABLE ONLY "surety-scheme-part"
@@ -1945,7 +1965,7 @@ ALTER TABLE ONLY "surety-scheme-part"
 
 
 --
--- Name: surety-scheme_pkey; Type: CONSTRAINT; Schema: public; Owner: genealogy; Tablespace: 
+-- Name: surety-scheme_pkey; Type: CONSTRAINT; Schema: public; Owner: genealogy; Tablespace:
 --
 
 ALTER TABLE ONLY "surety-scheme"

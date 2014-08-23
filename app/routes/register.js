@@ -1,15 +1,15 @@
 'use strict';
 
 // Dependencies
-var Router = require('../helpers/_base-router');
-var registerController = require('../controllers/register');
+var controller = require('../controllers/register');
 
-var router = new Router({
-  controller: registerController,
-  basePath: '/register',
-  api: false,
-  server: true
-});
+var basePath = '/register';
 
 // Routes
-module.exports = router.setRoutes;
+module.exports = function(app) {
+
+  app.get(basePath, controller.renderPage);
+
+  app.post(basePath, controller.register);
+
+};

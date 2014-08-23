@@ -1,17 +1,15 @@
 'use strict';
 
 // Dependencies
-var Router = require('../helpers/_base-router');
-var loginController = require('../controllers/login');
+var controller = require('../controllers/login');
 
-console.log(loginController);
-
-var router = new Router({
-  controller: loginController,
-  basePath: '/login',
-  api: false,
-  server: true
-});
+var basePath = '/login';
 
 // Routes
-module.exports = router.setRoutes;
+module.exports = function(app) {
+
+  app.get(basePath, controller.renderPage);
+
+  app.post(basePath, controller.authenticate);
+
+};

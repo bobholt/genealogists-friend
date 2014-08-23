@@ -6,7 +6,7 @@
     <title>{{title}}</title>
     <!--Application CSS Files-->
     {{#each cssFiles}}
-      <link rel="stylesheet" href="{{this}}">
+      <link rel="stylesheet" href="/{{this}}">
     {{/each}}
 </head>
 <body>
@@ -14,7 +14,7 @@
     {{{body}}}
 
     {{#each jsFiles}}
-        <script src="{{this}}"></script>
+        <script src="/{{this}}"></script>
     {{/each}}
 
 </body>

@@ -1,10 +1,11 @@
 'use strict';
 
-// Dependencies
-var Controller = require('../helpers/_base-controller');
-// var Index = require('../models/index');
+var page = 'index';
 
-module.exports = new Controller({
-  name: 'index'
-  // model: Index
-});
+module.exports = {
+  renderPage: function(req, res) {
+    res.render(page, {
+      user: req.user ? req.user.toJSON() : null
+    });
+  }
+}

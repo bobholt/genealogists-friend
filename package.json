@@ -4,6 +4,7 @@
   "description": "Course Creator",
   "main": "server.js",
   "dependencies": {
+    "bcrypt": "^0.8.0",
     "body-parser": "^1.4.3",
     "bookshelf": "^0.7.7",
     "compression": "^1.0.11",

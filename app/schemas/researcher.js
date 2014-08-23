@@ -33,18 +33,23 @@ knex.schema.hasTable('researcher').then(function(exists) {
       // Unique identifier for this particular RESEARCHER.
       table.increments('id').primary().unique();
 
-      table.string('email').notNullable();
+      table.string('username').notNullable().defaultTo('').unique();
+
+      table.string('firstName').notNullable().defaultTo('');
+      table.string('lastName').notNullable().defaultTo('');
+      table.string('displayName').notNullable().defaultTo('');
+
+      table.string('email').notNullable().unique();
 
       // The full name of the researcher, suitable for reports.
       table.string('name').notNullable().defaultTo('');
 
-      table.string('salt').notNullable();
-
+      table.string('provider').notNullable();
       table.string('password').notNullable();
 
       // The address of the researcher.  Part of the address is connected to
       // Place-ID in PLACE.
-      table.integer('address_id').unsigned().references('id').inTable('place').notNullable();
+      table.integer('address_id').unsigned().references('id').inTable('place');
 
       // Comments about the researcher, if necessary.
       table.text('comments').notNullable().defaultTo('');
