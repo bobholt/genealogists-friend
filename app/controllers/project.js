@@ -1,6 +1,6 @@
 'use strict';
 
-var page = 'researcher';
+var page = 'projects';
 
 module.exports = {
   renderPage: function(req, res) {
@@ -10,8 +10,7 @@ module.exports = {
       res.render(page, {
         helpers: {
           activeClass: function(section) {
-            console.log(section);
-            if (req.url.indexOf(section) !== -1) {
+            if (section === 'projects') {
               return 'active';
             } else {
               return '';
