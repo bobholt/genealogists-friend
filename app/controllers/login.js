@@ -18,7 +18,7 @@ module.exports = {
           if (err) {
             res.status(400).send(err);
           } else {
-            res.redirect('/researcher/' + user.id);
+            res.redirect('/researcher/dashboard');
           }
         });
       }
@@ -26,7 +26,7 @@ module.exports = {
   },
   renderPage: function(req, res) {
     if (req.user) {
-      res.redirect('/researcher/' + req.user.id);
+      res.redirect('/researcher/dashboard');
     } else {
       res.render(page, {
         user: req.user ? req.user.toJSON() : null

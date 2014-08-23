@@ -8,6 +8,8 @@ var basePath = '/researcher';
 // Routes
 module.exports = function(app) {
 
-  app.get(basePath + '/:id', controller.renderPage);
+  app.get(basePath + '/dashboard', controller.renderPage);
+  app.get(basePath + '/projects', controller.renderPage);
+  app.get(basePath + '/profile', controller.renderPage);
 
 };
