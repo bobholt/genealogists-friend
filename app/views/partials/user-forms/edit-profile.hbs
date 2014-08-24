@@ -1,0 +1,63 @@
+ <form action="/profile" class="form-horizontal" method="POST">
+  <fieldset class="col-md-5 col-md-offset-1">
+    <legend>Profile</legend>
+    <div class="form-group">
+      <label for="givenName" class="control-label col-md-5">Given Name</label>
+      <div class="col-md-7">
+        <input type="text" name="givenName" id="givenName" class="form-control" value="{{user.givenName}}">
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="familyName" class="control-label col-md-5">Family Name</label>
+      <div class="col-md-7">
+        <input type="text" name="familyName" id="familyName" class="form-control" value="{{user.familyName}}">
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="displayName" class="control-label col-md-5">Display Name</label>
+      <div class="col-md-7">
+        <input type="text" name="displayName" id="displayName" class="form-control" value="{{user.displayName}}" readonly>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-md-5">Family Name First?</label>
+      <div class="col-md-7">
+        <div class="radio-inline">
+          <label>
+            <input type="radio" value="true" name="familyNameFirst" id="familyNameFirst1"{{#if user.familyNameFirst}}checked{{/if}}>
+            Yes
+          </label>
+        </div>
+        <div class="radio-inline">
+          <label>
+            <input type="radio" value="false" name="familyNameFirst" id="familyNameFirst2" {{#unless user.familyNameFirst}}checked{{/unless}}>
+            No
+          </label>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="email" class="control-label col-md-5">Email</label>
+      <div class="col-md-7">
+        <input type="text" name="email" id="email" class="form-control" value="{{user.email}}">
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="comments" class="control-label col-md-5">About You</label>
+      <div class="col-md-7">
+        <textarea name="comments" id="comments" class="form-control">{{user.comments}}</textarea>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-md-offset-5 col-md-7">
+        <button type="submit" class="btn btn-default">Update Profile</button>
+      </div>
+    </div>
+  </fieldset>
+</form>
+
+  <!--
+      // The address of the researcher.  Part of the address is connected to
+      // Place-ID in PLACE.
+      table.integer('address_id').unsigned().references('id').inTable('place');
+-->

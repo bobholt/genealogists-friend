@@ -8,8 +8,6 @@ var basePath = '/register';
 // Routes
 module.exports = function(app) {
 
-  app.get(basePath, controller.renderPage);
-
   app.post(basePath, controller.register);
 
 };

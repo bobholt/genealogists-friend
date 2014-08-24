@@ -856,12 +856,11 @@ ALTER SEQUENCE "research-objective_id_seq" OWNED BY "research-objective".id;
 
 CREATE TABLE researcher (
     id integer NOT NULL,
-    username character varying(255) DEFAULT ''::character varying NOT NULL,
-    "firstName" character varying(255) DEFAULT ''::character varying NOT NULL,
-    "lastName" character varying(255) DEFAULT ''::character varying NOT NULL,
+    "givenName" character varying(255) DEFAULT ''::character varying NOT NULL,
+    "familyName" character varying(255) DEFAULT ''::character varying NOT NULL,
     "displayName" character varying(255) DEFAULT ''::character varying NOT NULL,
+    "familyNameFirst" boolean DEFAULT false NOT NULL,
     email character varying(255) NOT NULL,
-    name character varying(255) DEFAULT ''::character varying NOT NULL,
     provider character varying(255) NOT NULL,
     password character varying(255) NOT NULL,
     address_id integer,
@@ -1638,7 +1637,7 @@ SELECT pg_catalog.setval('"research-objective_id_seq"', 1, false);
 -- Data for Name: researcher; Type: TABLE DATA; Schema: public; Owner: genealogy
 --
 
-COPY researcher (id, username, "firstName", "lastName", "displayName", email, name, provider, password, address_id, comments, created_at, updated_at) FROM stdin;
+COPY researcher (id, "givenName", "familyName", "displayName", "familyNameFirst", email, provider, password, address_id, comments, created_at, updated_at) FROM stdin;
 \.
 
 
@@ -1914,14 +1913,6 @@ ALTER TABLE ONLY researcher
 
 ALTER TABLE ONLY researcher_project
     ADD CONSTRAINT researcher_project_pkey PRIMARY KEY (id);
-
-
---
--- Name: researcher_username_unique; Type: CONSTRAINT; Schema: public; Owner: genealogy; Tablespace:
---
-
-ALTER TABLE ONLY researcher
-    ADD CONSTRAINT researcher_username_unique UNIQUE (username);
 
 
 --

@@ -10,4 +10,6 @@ module.exports = function(app) {
 
   app.get(basePath, controller.renderPage);
 
+  app.post(basePath, controller.updateProfile);
+
 };

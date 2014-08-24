@@ -1,15 +1,28 @@
-  <form action="/register" method="POST" class="well col-md-4">
-    <div class="input-group gen-input-group">
-      <label class="input-group-addon" for="email">Email</label>
-      <input type="text" class="form-control" name="email" id="email">
+<form action="/register" method="POST" class="form-horizontal" role="form">
+  <fieldset class="col-md-5 col-md-offset-1">
+    <legend>Register</legend>
+    <div class="form-group">
+      <label class="control-label col-md-5" for="email">Email</label>
+      <div class="col-md-7">
+        <input type="text" class="form-control" name="email" id="email">
+      </div>
     </div>
-    <div class="input-group gen-input-group">
-      <label class="input-group-addon" for="password">Password</label>
-      <input type="password" class="form-control" name="password" id="password">
+    <div class="form-group">
+      <label class="control-label col-md-5" for="password">Password</label>
+      <div class="col-md-7">
+        <input type="password" class="form-control" name="password" id="password">
+      </div>
     </div>
-    <div class="input-group gen-input-group">
-      <label class="input-group-addon" for="confirm-password">Confirm Password</label>
-      <input type="password" class="form-control" name="confirm-password" id="confirm-password">
+    <div class="form-group">
+      <label class="control-label col-md-5" for="password">Confirm Password</label>
+      <div class="col-md-7">
+        <input type="password" class="form-control" name="confirm-password" id="confirm-password">
+      </div>
     </div>
-    <input type="submit" class="btn btn-default pull-right">
-  </form>
+    <div class="form-group">
+      <div class="col-md-offset-5 col-md-7">
+        <button type="submit" class="btn btn-default">Register</button>
+      </div>
+    </div>
+  </fieldset>
+</form>

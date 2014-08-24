@@ -19,7 +19,7 @@ module.exports = {
 
     // Init Variables
     var user = new Researcher(req.body);
-    var message = null;
+
     user.set({
       provider: 'local',
       displayName: ''
@@ -32,13 +32,12 @@ module.exports = {
 
       // Remove sensitive data before login
       delete userJSON.password;
-      delete userJSON.salt;
 
       req.login(userJSON, function(err) {
         if (err) {
           res.status(400).send(err);
         } else {
-          res.redirect('/researcher/' + user.id);
+          res.redirect('/dashboard');
         }
       });
     }).catch(function(err) {
@@ -46,14 +45,5 @@ module.exports = {
         message: errorHandler.getErrorMessage(err)
       });
     });
-  },
-  renderPage: function(req, res) {
-    if (req.user) {
-      res.redirect('/researcher/' + req.user.id);
-    } else {
-      res.render(page, {
-        user: req.user ? req.user.toJSON() : null
-      });
-    }
   }
 }
